@@ -54,7 +54,21 @@ export class PostListComponent implements OnInit {
     if (this.searchText.trim() === '') {
       this.postService.getAllPosts();
     }
-    this.postService.searchPostsByTitle(this.searchText).subscribe(posts => {this.post = posts;});
+    this.postService.searchPostsByTitle(this.searchText).subscribe(
+      (posts) => {
+        this.post = posts;
+        if (posts.length === 0) {
+          this.post = [
+            {
+              "userId": 1,
+              "id": 1,
+              "title": "Post não encontrado",
+              "body": ""
+            }
+        ]
+        }
+      }
+    );
   }
 
   goToPostDetail(postId: number) {
