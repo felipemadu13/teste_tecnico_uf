@@ -1,0 +1,26 @@
+<app-header ></app-header>
+<div class="container mt-4">
+  <div class="container mt-2 w-75">
+    <input type="text" class="form-control mb-5 mt-5" placeholder="Pesquisar por título" [(ngModel)]="searchText" (keydown)="findPosts()"/>
+  </div>
+  <div>
+    <ul >
+        <li *ngFor="let post of postsPerPage()" (click)="goToPostDetail(post.id)">
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.body }}</p>
+          <hr/>
+        </li>
+    </ul>
+  </div>
+  <div class="pagination">
+    <span class="page-prevNext" (click)="previousPage()"> Anterior </span>
+    <ng-container *ngFor="let pageNow of numberOfPages()">
+      <span class="page-number" [class.active]="currentPage === pageNow" (click)="newCurrentPage(pageNow)">
+        {{ pageNow }}
+      </span>
+    </ng-container>
+    <span class="page-prevNext" (click)="nextPage()" > Próximo </span>
+  </div>
+</div>
+<app-footer></app-footer>
+

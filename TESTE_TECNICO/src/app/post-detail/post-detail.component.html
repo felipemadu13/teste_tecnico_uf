@@ -1,0 +1,12 @@
+<app-header></app-header>
+<div class="container mt-4">
+  <div class="post-detail">
+    <div *ngIf="post">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text">{{ post.body }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
