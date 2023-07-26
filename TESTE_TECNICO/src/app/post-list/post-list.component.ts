@@ -11,6 +11,7 @@ export class PostListComponent implements OnInit {
   public post:any = [];
   public currentPage:number = 1;
   public searchText: string = '';
+  public initialPage: number = 1;
 
   constructor(private postService: PostService, private router: Router) { }
 
@@ -29,13 +30,13 @@ export class PostListComponent implements OnInit {
   }
 
   previousPage() {
-    if(this.currentPage > 1) {
+    if(this.currentPage > this.initialPage) {
       this.currentPage = this.currentPage - 1;
     }
   }
 
   nextPage() {
-    if(this.currentPage < 20) {
+    if(this.currentPage < Math.floor(this.post.length / 5)) {
       this.currentPage = this.currentPage + 1;
     }
   }
@@ -46,8 +47,16 @@ export class PostListComponent implements OnInit {
 
     for (let i = 1; i <= numberOfPages; i++) {
       pagesArray.push(i);
+    } 
+
+    if (this.currentPage <= 3) {
+      return pagesArray.slice(0,5)
+    } else if (this.currentPage <= numberOfPages - 2){
+      return pagesArray.slice(this.currentPage - 3, this.currentPage + 2);
+    } else {
+      return pagesArray.slice(numberOfPages - 5, numberOfPages)
     }
-    return pagesArray;
+ 
   }
 
   findPosts() {
